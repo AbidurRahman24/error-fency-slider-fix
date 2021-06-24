@@ -1,3 +1,4 @@
+const imagesArea = document.querySelector('.images');
 const gallery = document.querySelector('.gallery');
 const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
@@ -24,8 +25,7 @@ const getImages = (query) => {
 
 // show images 
 const showImages = images => {
-  console.log(images,'CLick');
-  const imagesArea = document.querySelector('.images');
+  
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
@@ -71,7 +71,10 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('duration').value || 1000;
+  const duration = document.getElementById('duration').value || 1000  ;
+  if (duration < 0) {
+    document.getElementById('duration').value || 1000 
+  }
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";

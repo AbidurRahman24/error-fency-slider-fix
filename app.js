@@ -1,4 +1,3 @@
-const imagesArea = document.querySelector('.images');
 const gallery = document.querySelector('.gallery');
 const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
@@ -13,8 +12,20 @@ let sliders = [];
 // to create your own api key
 const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
+const getImages = (query) => {
+  fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
+    .then(response => response.json())
+    .then(data => { 
+      // console.log(data.hits);
+      showImages(data.hits)
+    })
+    .catch(err => console.log(err))
+}
+
 // show images 
-const showImages = (images) => {
+const showImages = images => {
+  console.log(images,'CLick');
+  const imagesArea = document.querySelector('.images');
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
@@ -26,13 +37,6 @@ const showImages = (images) => {
     gallery.appendChild(div)
   })
 
-}
-
-const getImages = (query) => {
-  fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
-    .then(response => response.json())
-    .then(data => showImages(data.hitS))
-    .catch(err => console.log(err))
 }
 
 let slideIndex = 0;

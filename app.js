@@ -6,7 +6,19 @@ const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
 // selected image 
 let sliders = [];
+var timer
+// search Btn
+searchBtn.addEventListener('click', function () {
+  document.querySelector('.main').style.display = 'none';
+  clearInterval(timer);
+  const search = document.getElementById('search');
+  getImages(search.value)
+  sliders.length = 0;
+})
 
+sliderBtn.addEventListener('click', function () {
+  createSlider()
+})
 
 // If this key doesn't work
 // Find the name in the url and go to their website
@@ -51,7 +63,7 @@ const selectItem = (event, img) => {
     alert('Hey, Already added !')
   }
 }
-var timer
+
 const createSlider = () => {
   // check slider image length
   if (sliders.length < 2) {
@@ -71,23 +83,25 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('duration').value || 1000  ;
+  const duration = document.getElementById('duration').value || 2000  ;
   if (duration < 0) {
-    document.getElementById('duration').value || 1000 
+    alert('Please Enter positive Number')
   }
-  sliders.forEach(slide => {
-    let item = document.createElement('div')
-    item.className = "slider-item";
-    item.innerHTML = `<img class="w-100"
-    src="${slide}"
-    alt="">`;
-    sliderContainer.appendChild(item)
-  })
-  changeSlide(0)
-  timer = setInterval(function () {
-    slideIndex++;
-    changeSlide(slideIndex);
-  }, duration);
+  else{
+    sliders.forEach(slide => {
+      let item = document.createElement('div')
+      item.className = "slider-item";
+      item.innerHTML = `<img class="w-100"
+      src="${slide}"
+      alt="">`;
+      sliderContainer.appendChild(item)
+    })
+    changeSlide(0)
+    timer = setInterval(function () {
+      slideIndex++;
+      changeSlide(slideIndex);
+    }, duration);
+  }
 }
 
 // change slider index 
@@ -116,14 +130,3 @@ const changeSlide = (index) => {
   items[index].style.display = "block"
 }
 
-searchBtn.addEventListener('click', function () {
-  document.querySelector('.main').style.display = 'none';
-  clearInterval(timer);
-  const search = document.getElementById('search');
-  getImages(search.value)
-  sliders.length = 0;
-})
-
-sliderBtn.addEventListener('click', function () {
-  createSlider()
-})

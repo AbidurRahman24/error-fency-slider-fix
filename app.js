@@ -8,13 +8,20 @@ const sliderContainer = document.getElementById('sliders');
 let sliders = [];
 var timer
 // search Btn
-searchBtn.addEventListener('click', function () {
-  document.querySelector('.main').style.display = 'none';
-  clearInterval(timer);
-  const search = document.getElementById('search');
+const search = document.getElementById('search');
+search.addEventListener('keyup', ()=>{
+  // e.preventDefault()
   getImages(search.value)
-  sliders.length = 0;
+    sliders.length = 0;
+  searchBtn.addEventListener('click', function () {
+    document.querySelector('.main').style.display = 'none';
+    clearInterval(timer);
+    const search = document.getElementById('search');
+    getImages(search.value)
+    sliders.length = 0;
+  })
 })
+
 
 sliderBtn.addEventListener('click', function () {
   createSlider()
@@ -59,9 +66,6 @@ const selectItem = (event, img) => {
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
-  }
-  else if(item === 1){
-    sliders.pop(img)
   } else {
     alert('Hey, Already added !')
   }
